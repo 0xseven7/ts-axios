@@ -20,7 +20,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: '/\.ts$/',
+        test: /.ts$/,
         enforce: 'pre',
         use: [
           {
@@ -28,7 +28,7 @@ module.exports = {
           }
         ]
       }, {
-        test: '/\.tsx$/',
+        test: /.tsx?$/,
         use: [
           {
             loader: 'ts-loader',
