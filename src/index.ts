@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from './types'
-function axios(config: AxiosRequestConfig): void {
-  let a = 1
+function axios(config: AxiosRequestConfig) {
+  return {}
 }
 
 export default axios
