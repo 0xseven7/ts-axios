@@ -27,4 +27,19 @@ axios({
     date: new Date(),
     void: null
   }})
+axios({
+  method: 'post',
+  url: '/base/post',
+  data: {
+    a: 'aaaa',
+    b: 'bbbb'
+  }
+})
+const arr = new Int32Array([21, 31])
+axios({
+  method: 'post',
+  url: '/base/buffer',
+  data: arr
+})
+
 
