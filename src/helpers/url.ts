@@ -9,7 +9,7 @@ function encode(val: string): string {
     .replace(/%5B/gi, '[')
     .replace(/%5D/gi, ']')
 }
-export  function bindUrl(url: string, params?: any) {
+export function buildUrl(url: string, params?: any) {
   if (!params) {
     return url
   }

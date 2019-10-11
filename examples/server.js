@@ -19,6 +19,9 @@ router.get('/simple/get', (req, res) => {
     msg: 'hello world'
   })
 })
+router.get('/base/get', (req, res) => {
+  res.json(req.query)
+})
 app.use(router)
 app.use(webpackHotMiddleware(compiler))
 app.use(express.static(__dirname))
