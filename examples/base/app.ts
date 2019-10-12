@@ -30,6 +30,9 @@ axios({
 axios({
   method: 'post',
   url: '/base/post',
+  headers: {
+    'content-type': 'application/json;charset=utf-8'
+  },
   data: {
     a: 'aaaa',
     b: 'bbbb'
