@@ -6,7 +6,7 @@ import {processHeader} from './helpers/header'
 function processConfig (config: AxiosRequestConfig) {
   config.url = transformUrl(config)
   config.headers = processHeader(config)
-  config.data = transFormRequest(config)
+  config.data = transformRequestData(config)
 }
 function transformUrl(config: AxiosRequestConfig) {
   const {url, params} = config
@@ -16,6 +16,7 @@ function transformRequestData(config: AxiosRequestConfig) {
   return transFormRequest(config)
 }
 function axios(config: AxiosRequestConfig) {
+  console.log(config);
   processConfig(config)
   xhr(config)
 }
