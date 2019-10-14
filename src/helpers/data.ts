@@ -4,3 +4,12 @@ export function transFormRequest({data}: any): any {
     return JSON.stringify(data)
   }
 }
+export function transFormResponse(data: any): any {
+  if (typeof data === 'string') {
+    try {
+        data = JSON.parse(data)
+    } catch(e) {
+    }
+  }
+  return data
+}
