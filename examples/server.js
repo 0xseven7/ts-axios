@@ -41,6 +41,9 @@ router.post('/base/buffer', (req, res) => {
     res.json(buf.toJSON())
   })
 })
+router.get('/error/get1', (req, res) => {
+  res.end('no error')
+})
 app.use(router)
 app.use(webpackHotMiddleware(compiler))
 app.use(express.static(__dirname))

@@ -11,7 +11,6 @@ function normalizeHeaderName (headers: any, normalizedName: string): void {
   })
 }
 export function processHeader (config: any): any {
-  console.log(config);
   let {headers, data} = config
   normalizeHeaderName(headers, 'Content-Type')
   if (isPlainObject(data)) {
