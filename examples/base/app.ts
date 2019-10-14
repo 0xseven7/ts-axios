@@ -31,18 +31,21 @@ axios({
   method: 'post',
   url: '/base/post',
   headers: {
-    'content-type': 'application/json;charset=utf-8'
+    'content-type': 'application/json'
   },
   data: {
     a: 'aaaa',
     b: 'bbbb'
-  }
+  },
+  responseType: 'json'
+}).then(res => {
+  console.log(res);
 })
-const arr = new Int32Array([21, 31])
-axios({
-  method: 'post',
-  url: '/base/buffer',
-  data: arr
-})
+// const arr = new Int32Array([21, 31])
+// axios({
+//   method: 'post',
+//   url: '/base/buffer',
+//   data: arr
+// })
 
 //

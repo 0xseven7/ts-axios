@@ -1,5 +1,4 @@
 import {isPlainObject} from './utils'
-import { transFormRequest } from './data'
 function normalizeHeaderName (headers: any, normalizedName: string): void {
   if (!headers) {
     return
@@ -22,4 +21,20 @@ export function processHeader (config: any): any {
     }
   }
   return headers
+}
+export function parseHeaders(headers: string): any {
+  let parsed = Object.create(null)
+  if (!headers) {
+    return parsed
+  }
+  headers.split('\r\n').forEach((line) => {
+    let [key, value] = line.split(':')
+    key = key.trim().toLowerCase();
+    if (!key) {return}
+    if (value) {
+      value = value.trim()
+    }
+    parsed[key] = value
+  })
+  return parsed
 }
