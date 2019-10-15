@@ -11,7 +11,7 @@ axios({
   method: 'get',
   url: '/error/get',
 }).then((res) => {
-  console.log(res);
+  console.log(res21);
 }).catch(e => {
   console.log(e)
 })
