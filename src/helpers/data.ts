@@ -1,5 +1,5 @@
-import {isPlainObject} from './utils'
-export function transFormRequest({data}: any): any {
+import { isPlainObject } from './utils'
+export function transFormRequest({ data }: any): any {
   if (isPlainObject(data)) {
     return JSON.stringify(data)
   }
@@ -7,8 +7,9 @@ export function transFormRequest({data}: any): any {
 export function transFormResponse(data: any): any {
   if (typeof data === 'string') {
     try {
-        data = JSON.parse(data)
-    } catch(e) {
+      data = JSON.parse(data)
+    } catch (e) {
+      return
     }
   }
   return data
