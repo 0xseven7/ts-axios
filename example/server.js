@@ -11,6 +11,20 @@ router.get('/simple/get', (req, res) => {
   console.log(req.query);
   res.json(req.query)
 })
+router.post('/data/post', (req, res) => {
+  console.log(reqes.body);
+  res.json(req.body)
+})
+router.post('/data/buffer', (req, res) => {
+  let msg = []
+  req.on('data', (chunk) => {
+    if (chunk) msg.push(chunk)
+  })
+  req.on('end', () => {
+    let buf = Buffer.concat(msg)
+    res.json(buf.toJSON())
+  })
+})
 app.use(router)
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',

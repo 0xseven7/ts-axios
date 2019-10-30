@@ -11,7 +11,7 @@ function encode(val: string): string {
 }
 export function bindUrl(url: string, params?: any) {
   if (!params) {
-    return
+    return url
   }
   const part: string[] = []
   Object.keys(params).forEach(key => {
@@ -45,6 +45,5 @@ export function bindUrl(url: string, params?: any) {
     url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
   }
   console.log(url)
-
   return url
 }
