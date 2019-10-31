@@ -31,3 +31,11 @@ export interface IAxiosResponse {
   headers: any
 }
 export interface IAxiosPromise extends Promise<IAxiosResponse> {}
+export interface IAxiosError {
+  message: string
+  config: IAxiosRequestConfig
+  code?: string
+  request?: any
+  response?: IAxiosResponse
+  isAxiosError: boolean
+}
