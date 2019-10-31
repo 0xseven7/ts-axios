@@ -4,6 +4,7 @@ export interface IAxiosRequestConfig {
   headers?: any
   data?: any
   params?: any
+  responseType?: XMLHttpRequestResponseType
 }
 export type Method =
   | 'get'
@@ -20,3 +21,12 @@ export type Method =
   | 'PUT'
   | 'patch'
   | 'PATCH'
+export interface IAxiosResponse {
+  data: any
+  config: IAxiosRequestConfig
+  status: number
+  statusText: string
+  request: any
+  headers: any
+}
+export interface IAxiosPromise extends Promise<IAxiosResponse> {}

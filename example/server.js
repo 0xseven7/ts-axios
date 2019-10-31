@@ -27,6 +27,10 @@ router.post('/data/buffer', (req, res) => {
     res.json(buf.toJSON())
   })
 })
+router.post('/base/post', (req, res) => {
+  console.log(req.body);
+  res.json(req.body)
+})
 app.use(router)
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',
