@@ -2,6 +2,7 @@ import { IAxiosRequestConfig } from './types'
 import xhr from './xhr'
 import { bindUrl } from './helper/url'
 import { transformRequest } from './helper/data'
+import { processHeaders } from './helper/headers'
 
 export default function axios(config: IAxiosRequestConfig) {
   processConfig(config)
@@ -9,7 +10,7 @@ export default function axios(config: IAxiosRequestConfig) {
 }
 function processConfig(config: IAxiosRequestConfig): void {
   config.url = transformUrl(config)
-  console.log(config.url)
+  config.headers = transformHeader(config)
   config.data = transformRequestData(config)
 }
 function transformUrl(config: IAxiosRequestConfig): string {
@@ -18,4 +19,8 @@ function transformUrl(config: IAxiosRequestConfig): string {
 }
 function transformRequestData(config: IAxiosRequestConfig): any {
   return transformRequest(config.data)
+}
+function transformHeader(config: IAxiosRequestConfig) {
+  const { data, headers = {} } = config
+  return processHeaders(headers, data)
 }

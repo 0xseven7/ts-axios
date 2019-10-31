@@ -1,7 +1,7 @@
 export interface IAxiosRequestConfig {
   url: string
   method: Method
-  header?: any
+  headers?: any
   data?: any
   params?: any
 }

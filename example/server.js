@@ -7,12 +7,14 @@ const WebpackConfig = require('./webpack.config')
 const router = express.Router()
 const app = express()
 const compiler = webpack(WebpackConfig)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 router.get('/simple/get', (req, res) => {
   console.log(req.query);
   res.json(req.query)
 })
 router.post('/data/post', (req, res) => {
-  console.log(reqes.body);
+  console.log(req.body);
   res.json(req.body)
 })
 router.post('/data/buffer', (req, res) => {
@@ -38,8 +40,7 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use(express.static(__dirname))
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+
 
 const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {
