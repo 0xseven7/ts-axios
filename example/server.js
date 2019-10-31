@@ -31,6 +31,12 @@ router.post('/base/post', (req, res) => {
   console.log(req.body);
   res.json(req.body)
 })
+router.get('/error/timeout', (req, res) => {
+  
+})
+router.get('/error/internal', (req, res) => {
+  console.lg('1212')
+})
 app.use(router)
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',

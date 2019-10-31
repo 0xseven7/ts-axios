@@ -1,6 +1,7 @@
 export interface IAxiosRequestConfig {
   url: string
   method: Method
+  timeout?: number
   headers?: any
   data?: any
   params?: any
