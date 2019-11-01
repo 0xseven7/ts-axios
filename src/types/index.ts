@@ -1,6 +1,6 @@
 export interface IAxiosRequestConfig {
   url: string
-  method: Method
+  method?: Method
   timeout?: number
   headers?: any
   data?: any
@@ -38,4 +38,17 @@ export interface IAxiosError {
   request?: any
   response?: IAxiosResponse
   isAxiosError: boolean
+}
+export interface IAxios {
+  request(config: IAxiosRequestConfig): IAxiosPromise
+  get(url: string, config?: IAxiosRequestConfig): IAxiosPromise
+  delete(url: string, config?: IAxiosRequestConfig): IAxiosPromise
+  head(url: string, config?: IAxiosRequestConfig): IAxiosPromise
+  options(url: string, config?: IAxiosRequestConfig): IAxiosPromise
+  post(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise
+  put(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise
+  patch(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise
+}
+export interface IAxiosInstance extends IAxios {
+  (config: IAxiosRequestConfig): IAxiosPromise
 }

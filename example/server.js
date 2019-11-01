@@ -32,10 +32,21 @@ router.post('/base/post', (req, res) => {
   res.json(req.body)
 })
 router.get('/error/timeout', (req, res) => {
-  
+
 })
 router.get('/error/internal', (req, res) => {
   console.lg('1212')
+})
+router.get('/extend/get', (req, res) => {
+  console.log('1212')
+  res.json({
+    a: 1,
+    b: 2
+  })
+})
+router.post('/extend/post', (req, res) => {
+  console.lo();
+  res.json(req.body);
 })
 app.use(router)
 app.use(webpackDevMiddleware(compiler, {
