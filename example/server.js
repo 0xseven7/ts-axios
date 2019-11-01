@@ -31,11 +31,18 @@ router.post('/base/post', (req, res) => {
   console.log(req.body);
   res.json(req.body)
 })
-router.get('/error/timeout', (req, res) => {
-
+router.get('/extend/user', (req, res) => {
+  res.json({
+    code: 0,
+    result: {
+      name: 'zcx',
+      age: 12
+    },
+    message: 'no message'
+  })
 })
 router.get('/error/internal', (req, res) => {
-  console.lg('1212')
+  console.log('1212')
 })
 router.get('/extend/get', (req, res) => {
   console.log('1212')
@@ -45,7 +52,6 @@ router.get('/extend/get', (req, res) => {
   })
 })
 router.post('/extend/post', (req, res) => {
-  console.lo();
   res.json(req.body);
 })
 app.use(router)

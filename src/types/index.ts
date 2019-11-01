@@ -1,5 +1,7 @@
+import Axios from '../core/Axios'
+
 export interface IAxiosRequestConfig {
-  url: string
+  url?: string
   method?: Method
   timeout?: number
   headers?: any
@@ -7,6 +9,7 @@ export interface IAxiosRequestConfig {
   params?: any
   responseType?: XMLHttpRequestResponseType
 }
+
 export type Method =
   | 'get'
   | 'GET'
@@ -22,15 +25,18 @@ export type Method =
   | 'PUT'
   | 'patch'
   | 'PATCH'
-export interface IAxiosResponse {
-  data: any
+
+export interface IAxiosResponse<T = any> {
+  data: T
   config: IAxiosRequestConfig
   status: number
   statusText: string
   request: any
   headers: any
 }
-export interface IAxiosPromise extends Promise<IAxiosResponse> {}
+
+export interface IAxiosPromise<T = any> extends Promise<IAxiosResponse<T>> {}
+
 export interface IAxiosError {
   message: string
   config: IAxiosRequestConfig
@@ -39,16 +45,38 @@ export interface IAxiosError {
   response?: IAxiosResponse
   isAxiosError: boolean
 }
+
 export interface IAxios {
-  request(config: IAxiosRequestConfig): IAxiosPromise
-  get(url: string, config?: IAxiosRequestConfig): IAxiosPromise
-  delete(url: string, config?: IAxiosRequestConfig): IAxiosPromise
-  head(url: string, config?: IAxiosRequestConfig): IAxiosPromise
-  options(url: string, config?: IAxiosRequestConfig): IAxiosPromise
-  post(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise
-  put(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise
-  patch(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise
+  request<T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
+
+  get<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
+
+  delete<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
+
+  head<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
+
+  options<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
+
+  post<T = any>(
+    url: string,
+    data?: any,
+    config?: IAxiosRequestConfig
+  ): IAxiosPromise<T>
+
+  put<T = any>(
+    url: string,
+    data?: any,
+    config?: IAxiosRequestConfig
+  ): IAxiosPromise<T>
+
+  patch<T = any>(
+    url: string,
+    data?: any,
+    config?: IAxiosRequestConfig
+  ): IAxiosPromise<T>
 }
+
 export interface IAxiosInstance extends IAxios {
-  (config: IAxiosRequestConfig): IAxiosPromise
+  <T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
+  <T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 }
