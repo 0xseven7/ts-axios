@@ -8,7 +8,14 @@ export interface IAxiosRequestConfig {
   data?: any
   params?: any
   responseType?: XMLHttpRequestResponseType
+  transformRequest?: IAxiosTransformer | IAxiosTransformer[]
+  transformResponse?: IAxiosTransformer | IAxiosTransformer[]
+
   [propName: string]: any
+}
+
+export interface IAxiosTransformer {
+  (data: any, headers?: any): any
 }
 
 export type Method =
@@ -92,6 +99,7 @@ export interface IAxiosInterceptorManager<T> {
 export interface IResolvedFn<T = any> {
   (val: T): T | Promise<T>
 }
+
 export interface IRejectedFn {
   (error: any): any
 }
