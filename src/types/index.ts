@@ -8,6 +8,7 @@ export interface IAxiosRequestConfig {
   data?: any
   params?: any
   responseType?: XMLHttpRequestResponseType
+  [propName: string]: any
 }
 
 export type Method =

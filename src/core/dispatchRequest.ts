@@ -2,11 +2,12 @@ import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from '../types'
 import xhr from '../xhr'
 import { bindUrl } from '../helper/url'
 import { transformRequest, transformResponse } from '../helper/data'
-import { processHeaders } from '../helper/headers'
+import { flattenHeaders, processHeaders } from '../helper/headers'
 function processConfig(config: IAxiosRequestConfig): void {
   config.url = transformUrl(config)
   config.headers = transformHeader(config)
   config.data = transformRequestData(config)
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 function transformUrl(config: IAxiosRequestConfig): string {
   const { url, params } = config
@@ -28,6 +29,7 @@ export default function dispatchRequest(
   config: IAxiosRequestConfig
 ): IAxiosPromise {
   processConfig(config)
+  console.log(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
   })

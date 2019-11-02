@@ -60,6 +60,15 @@ router.get('/interceptor/get', (req, res) => {
 router.post('/interceptor/post', (req, res) => {
   res.json(req.body);
 })
+router.get('/config/get', (req, res) => {
+  res.json(req.headers.test);
+})
+router.post('/config/post', (req, res) => {
+  console.log(req.body);
+  res.json(req.body);
+})
+
+
 
 app.use(router)
 app.use(webpackDevMiddleware(compiler, {
