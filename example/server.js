@@ -54,6 +54,13 @@ router.get('/extend/get', (req, res) => {
 router.post('/extend/post', (req, res) => {
   res.json(req.body);
 })
+router.get('/interceptor/get', (req, res) => {
+  res.json(req.headers);
+})
+router.post('/interceptor/post', (req, res) => {
+  res.json(req.body);
+})
+
 app.use(router)
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',

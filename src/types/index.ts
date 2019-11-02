@@ -78,5 +78,19 @@ export interface IAxios {
 
 export interface IAxiosInstance extends IAxios {
   <T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
+
   <T>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
+}
+
+export interface IAxiosInterceptorManager<T> {
+  use(resolved: IResolvedFn<T>, rejected?: IRejectedFn): number
+
+  eject(id: number): void
+}
+
+export interface IResolvedFn<T = any> {
+  (val: T): T | Promise<T>
+}
+export interface IRejectedFn {
+  (error: any): any
 }
