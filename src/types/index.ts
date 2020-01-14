@@ -19,6 +19,7 @@ export interface IAxiosRequestConfig {
   params?: any
   headers?: any
   responseType?: XMLHttpRequestResponseType
+  timeout?: number
 }
 
 export interface IAxiosResponse {
@@ -31,3 +32,10 @@ export interface IAxiosResponse {
 }
 
 export interface IAxiosPromise extends Promise<IAxiosResponse> {}
+export interface IAxiosError extends Error {
+  config: IAxiosRequestConfig
+  code?: string | null
+  request?: any
+  response?: IAxiosResponse
+  isAxiosError: boolean
+}
