@@ -1,6 +1,6 @@
-import {isPlainObj, isDate} from './util'
+import { isPlainObj, isDate } from './util'
 function encode(val: string): string {
-  return  encodeURIComponent(val)
+  return encodeURIComponent(val)
     .replace(/%40/g, '@')
     .replace(/%3A/g, ':')
     .replace(/%24/g, '$')
@@ -9,7 +9,7 @@ function encode(val: string): string {
     .replace(/%5B/gi, '[')
     .replace(/%5D/gi, ']')
 }
-export function bindUrl(url: string, params?:any): string {
+export function bindUrl(url: string, params?: any): string {
   if (!params) {
     return url
   }
@@ -19,14 +19,6 @@ export function bindUrl(url: string, params?:any): string {
     if (val === null && typeof val === 'undefined') {
       return
     }
-    // params = {
-    //   a: [1, 2],
-    //   b: {
-    //     c: 1,
-    //     d: 5
-    //   }
-    // }
-    // ?a[]=1&a[]=2&b={c:1,d:2}
     let values: string[]
     if (Array.isArray(val)) {
       values = val
@@ -42,17 +34,18 @@ export function bindUrl(url: string, params?:any): string {
       }
       parts.push(`${encode(key)}=${encode(value)}`)
     })
-
-    let serializeParams = parts.join('&')
-    console.log(serializeParams);
-    if (serializeParams) {
-      const markIndex = url.indexOf('#')
-      if (markIndex !== -1) {
-        url.slice(0, markIndex)
-      }
-      url = `${url}${url.indexOf('?') === -1 ? '?' : '' }${serializeParams}`
-      console.log(url);
-    }
   })
+  let serializeParams = parts.join('&')
+  if (serializeParams) {
+    const markIndex = url.indexOf('#')
+    console.log({
+      url
+    })
+    if (markIndex !== -1) {
+      url.slice(0, markIndex)
+    }
+
+    url = `${url}${url.indexOf('?') === -1 ? '?' : ''}${serializeParams}`
+  }
   return url
 }
