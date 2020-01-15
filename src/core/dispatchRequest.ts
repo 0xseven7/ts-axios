@@ -4,7 +4,7 @@ import xhr from './xhr'
 import { config } from 'shelljs'
 import { transformData } from '../helper/data'
 import { processHeaders } from '../helper/headers'
-function axios(config: IAxiosRequestConfig): IAxiosPromise {
+function dispatchRequest(config: IAxiosRequestConfig): IAxiosPromise {
   processConfig(config)
   return xhr(config)
 }
@@ -15,13 +15,13 @@ function processConfig(config: IAxiosRequestConfig): void {
 }
 function transFormUrl(config: IAxiosRequestConfig): string {
   const { url, params } = config
-  return bindUrl(url, params)
-}
-function transformRequestData(config: IAxiosRequestConfig) {
-  return transformData(config.data)
+  return bindUrl(url as string, params)
 }
 function transformReuestHeaders(config: IAxiosRequestConfig) {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
 }
-export default axios
+function transformRequestData(config: IAxiosRequestConfig) {
+  return transformData(config.data)
+}
+export default dispatchRequest

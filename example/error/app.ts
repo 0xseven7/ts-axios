@@ -1,4 +1,4 @@
-import axios, { IAxiosError } from '../../src/core'
+import axios, { IAxiosError } from '../../src'
 
 axios({
   method: 'get',
