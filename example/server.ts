@@ -36,6 +36,9 @@ router.get('/simple/get', (req, res) => {
 router.post('/base/post', (req, res) => {
   res.json(req.body)
 })
+router.post('/extend/post', (req, res) => {
+  res.json(req.body)
+})
 router.post('/base/buffer', (req, res) => {
   let msg: Buffer[] = []
   req.on('data', (chunk) => {

@@ -1,4 +1,5 @@
 import axios from '../../src'
+import { get } from 'http'
 console.log(axios);
 axios({
   method: 'post',
@@ -20,6 +21,34 @@ axios.post('/base/post', {
 }).catch(e => {
   console.log(e);
 })
+axios({
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
+}).then((res) => {
+  console.log(res);
+})
+axios('/extend/post', {
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
+}).then((res) => {
+  console.log(res);
+})
+axios( {
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
+}).then((res) => {
+  console.log(res);
+})
+
+
 
 // const arr = new Int32Array([21, 31])
 // console.log(arr);

@@ -2,7 +2,15 @@ import { IAxios, IAxiosPromise, IAxiosRequestConfig, TMethods } from '../types'
 import dispatchRequest from './dispatchRequest'
 
 export default class Axios implements IAxios {
-  request(config: IAxiosRequestConfig): IAxiosPromise {
+  request(url: any, config?: any): IAxiosPromise {
+    if (typeof url === 'string') {
+      if (!config) {
+        config = {}
+      }
+      config.url = url
+    } else {
+      config = url
+    }
     return dispatchRequest(config)
   }
 
@@ -45,6 +53,7 @@ export default class Axios implements IAxios {
   options(url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethodWithoutData('options', url, config)
   }
+
   head(url: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethodWithoutData('head', url, config)
   }
@@ -56,6 +65,7 @@ export default class Axios implements IAxios {
   put(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethodWithData('put', url, data, config)
   }
+
   patch(url: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestMethodWithData('patch', url, data, config)
   }
