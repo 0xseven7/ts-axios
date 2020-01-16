@@ -1,7 +1,31 @@
-import { IAxios, IAxiosPromise, IAxiosRequestConfig, TMethods } from '../types'
+import {
+  IAxios,
+  IAxiosPromise,
+  IAxiosRequestConfig,
+  IAxiosResponse,
+  IRejectedFn,
+  IResolvedFn,
+  TMethods,
+  Interceptors
+} from '../types'
+import InterceptorManager from './InterceptorManager'
 import dispatchRequest from './dispatchRequest'
+import { which } from 'shelljs'
+
+interface IPromiseChain {
+  resolved: IResolvedFn | ((config: IAxiosRequestConfig) => IAxiosPromise)
+  rejected?: IRejectedFn
+}
 
 export default class Axios implements IAxios {
+  interceptors: Interceptors
+  constructor() {
+    this.interceptors = {
+      request: new InterceptorManager<IAxiosRequestConfig>(),
+      reponse: new InterceptorManager<IAxiosResponse>()
+    }
+  }
+
   request(url: any, config?: any): IAxiosPromise {
     if (typeof url === 'string') {
       if (!config) {
@@ -11,7 +35,25 @@ export default class Axios implements IAxios {
     } else {
       config = url
     }
-    return dispatchRequest(config)
+    const chain: IPromiseChain[] = [
+      {
+        resolved: dispatchRequest,
+        rejected: undefined
+      }
+    ]
+    this.interceptors.request.forEach(interceptor => {
+      chain.unshift(interceptor)
+    })
+    this.interceptors.reponse.forEach(interceptor => {
+      chain.push(interceptor)
+    })
+    let promise = Promise.resolve(config)
+    while (chain.length) {
+      // !   断言值肯定存在的
+      const { resolved, rejected } = chain.shift()!
+      promise = promise.then(resolved, rejected)
+    }
+    return promise
   }
 
   private _requestMethodWithoutData(

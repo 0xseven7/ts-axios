@@ -46,6 +46,10 @@ router.get('/user/get', (req, res) => {
     message: 'success'
   })
 })
+router.get('/interceptor/get', (req, res) => {
+  res.end(req.headers.test)
+})
+
 
 router.post('/extend/post', (req, res) => {
   res.json(req.body)
