@@ -19,7 +19,9 @@ interface IPromiseChain {
 
 export default class Axios implements IAxios {
   interceptors: Interceptors
-  constructor() {
+  defaults: IAxiosRequestConfig
+  constructor(initConfig: IAxiosRequestConfig) {
+    this.defaults = initConfig
     this.interceptors = {
       request: new InterceptorManager<IAxiosRequestConfig>(),
       reponse: new InterceptorManager<IAxiosResponse>()
