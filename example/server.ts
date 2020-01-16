@@ -36,6 +36,17 @@ router.get('/simple/get', (req, res) => {
 router.post('/base/post', (req, res) => {
   res.json(req.body)
 })
+router.get('/user/get', (req, res) => {
+  res.json({
+    code: 0,
+    result: {
+      name: 'zx',
+      age: 28
+    },
+    message: 'success'
+  })
+})
+
 router.post('/extend/post', (req, res) => {
   res.json(req.body)
 })
@@ -48,7 +59,7 @@ router.post('/base/buffer', (req, res) => {
   })
   req.on('end', () => {
     let buf = Buffer.concat(msg)
-    console.log(buf);
+    console.log(buf)
     res.json(buf.toJSON())
   })
 })

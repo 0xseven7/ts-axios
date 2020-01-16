@@ -24,8 +24,8 @@ export interface IAxiosRequestConfig {
   timeout?: number
 }
 
-export interface IAxiosResponse {
-  data: any
+export interface IAxiosResponse<T = any> {
+  data: T
   status: number
   statusText: string
   headers: any
@@ -33,7 +33,7 @@ export interface IAxiosResponse {
   request: any
 }
 
-export interface IAxiosPromise extends Promise<IAxiosResponse> {}
+export interface IAxiosPromise<T = any> extends Promise<IAxiosResponse<T>> {}
 
 export interface IAxiosError extends Error {
   config: IAxiosRequestConfig
@@ -44,36 +44,37 @@ export interface IAxiosError extends Error {
 }
 
 export interface IAxios {
-  request(config: IAxiosRequestConfig): Promise<IAxiosResponse>
+  request<T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
 
-  get(url: string, config?: IAxiosRequestConfig): Promise<IAxiosResponse>
+  get<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 
-  delete(url: string, config?: IAxiosRequestConfig): Promise<IAxiosResponse>
+  delete<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 
-  head(url: string, config?: IAxiosRequestConfig): Promise<IAxiosResponse>
+  head<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 
-  options(url: string, config?: IAxiosRequestConfig): Promise<IAxiosResponse>
+  options<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 
-  post(
+  post<T = any>(
     url: string,
     data?: any,
     config?: IAxiosRequestConfig
-  ): Promise<IAxiosResponse>
+  ): IAxiosPromise<T>
 
-  put(
+  put<T = any>(
     url: string,
     data?: any,
     config?: IAxiosRequestConfig
-  ): Promise<IAxiosResponse>
+  ): IAxiosPromise<T>
 
-  patch(
+  patch<T = any>(
     url: string,
     data?: any,
     config?: IAxiosRequestConfig
-  ): Promise<IAxiosResponse>
+  ): IAxiosPromise<T>
 }
 
 export interface IAxiosInstance extends IAxios {
-  (config: IAxiosRequestConfig): Promise<IAxiosResponse>
-  (url: string, config?: IAxiosRequestConfig): IAxiosPromise
+  <T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
+
+  <T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 }
