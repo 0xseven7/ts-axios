@@ -24,8 +24,14 @@ export interface IAxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  transformRequest?: IAxiosTransformer | IAxiosTransformer[]
+  transformResponse?: IAxiosTransformer | IAxiosTransformer[]
 
   [propName: string]: any
+}
+
+export interface IAxiosTransformer {
+  (data: any, headers?: any): any
 }
 
 export interface IAxiosResponse<T = any> {
@@ -55,6 +61,7 @@ export interface Interceptors {
 export interface IAxios {
   interceptors: Interceptors
   defaults: IAxiosRequestConfig
+
   request<T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
 
   get<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
@@ -86,6 +93,7 @@ export interface IAxios {
 
 export interface IAxiosInstance extends IAxios {
   <T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
+
   <T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 }
 
