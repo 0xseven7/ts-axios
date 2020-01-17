@@ -3,7 +3,7 @@ import { bindUrl } from '../helper/urls'
 import xhr from './xhr'
 import { config } from 'shelljs'
 import { transformData } from '../helper/data'
-import { processHeaders } from '../helper/headers'
+import { flattenHeaders, processHeaders } from '../helper/headers'
 function dispatchRequest(config: IAxiosRequestConfig): IAxiosPromise {
   processConfig(config)
   return xhr(config)
@@ -12,6 +12,8 @@ function processConfig(config: IAxiosRequestConfig): void {
   config.url = transFormUrl(config)
   config.headers = transformReuestHeaders(config)
   config.data = transformRequestData(config)
+  // 去除headers中的冗余属性
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 function transFormUrl(config: IAxiosRequestConfig): string {
   const { url, params } = config

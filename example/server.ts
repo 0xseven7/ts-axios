@@ -54,6 +54,13 @@ router.get('/interceptor/get', (req, res) => {
 router.post('/extend/post', (req, res) => {
   res.json(req.body)
 })
+router.post('/config/post', (req, res) => {
+  res.json({
+    body: req.headers,
+    data: req.body
+  })
+})
+
 router.post('/base/buffer', (req, res) => {
   let msg: Buffer[] = []
   req.on('data', (chunk) => {
@@ -69,6 +76,6 @@ router.post('/base/buffer', (req, res) => {
 })
 
 app.use(router)
-app.listen(10000, () => {
-  console.log('server listen at 9999')
+app.listen(10001, () => {
+  console.log('server listen at 10001')
 })

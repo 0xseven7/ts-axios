@@ -11,6 +11,7 @@ import {
 import InterceptorManager from './InterceptorManager'
 import dispatchRequest from './dispatchRequest'
 import { which } from 'shelljs'
+import mergeConfig from './mergeConfig'
 
 interface IPromiseChain {
   resolved: IResolvedFn | ((config: IAxiosRequestConfig) => IAxiosPromise)
@@ -20,6 +21,7 @@ interface IPromiseChain {
 export default class Axios implements IAxios {
   interceptors: Interceptors
   defaults: IAxiosRequestConfig
+
   constructor(initConfig: IAxiosRequestConfig) {
     this.defaults = initConfig
     this.interceptors = {
@@ -37,6 +39,8 @@ export default class Axios implements IAxios {
     } else {
       config = url
     }
+    config = mergeConfig(this.defaults, config)
+    console.log(config)
     const chain: IPromiseChain[] = [
       {
         resolved: dispatchRequest,

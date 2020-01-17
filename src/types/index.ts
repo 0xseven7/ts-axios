@@ -24,6 +24,8 @@ export interface IAxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+
+  [propName: string]: any
 }
 
 export interface IAxiosResponse<T = any> {
@@ -49,8 +51,10 @@ export interface Interceptors {
   request: InterceptorManager<IAxiosRequestConfig>
   reponse: InterceptorManager<IAxiosResponse>
 }
+
 export interface IAxios {
   interceptors: Interceptors
+  defaults: IAxiosRequestConfig
   request<T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
 
   get<T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
@@ -82,14 +86,15 @@ export interface IAxios {
 
 export interface IAxiosInstance extends IAxios {
   <T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
-
   <T = any>(url: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
 }
 
 export interface IAxiosInterceptorManager<T> {
   use(resolved: IResolvedFn<T>, rejected?: IRejectedFn): number
+
   eject(id: number): void
 }
+
 export interface IResolvedFn<T = any> {
   (val: T): T | Promise<T>
 }
