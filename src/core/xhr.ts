@@ -15,9 +15,16 @@ export default function xhr(
       method = 'get',
       headers,
       responseType,
-      timeout
+      timeout,
+      cancelToken
     } = config
     const request = new XMLHttpRequest()
+    if (cancelToken) {
+      cancelToken.promise.then(reason => {
+        request.abort()
+        reject(reason)
+      })
+    }
     if (responseType) {
       request.responseType = responseType
     }

@@ -1,4 +1,5 @@
 import InterceptorManager from '../core/InterceptorManager'
+import exp from 'constants'
 
 export type TMethods =
   | 'get'
@@ -26,8 +27,24 @@ export interface IAxiosRequestConfig {
   timeout?: number
   transformRequest?: IAxiosTransformer | IAxiosTransformer[]
   transformResponse?: IAxiosTransformer | IAxiosTransformer[]
+  cancelToken?: ICancelToken
 
   [propName: string]: any
+}
+
+export interface ICancelToken {
+  promise: Promise<ICancel>
+  reason?: ICancel
+
+  throwIfRequested(): void
+}
+
+export interface ICanceler {
+  (message?: string): void
+}
+
+export interface ICancelExcutor {
+  (cancel: ICanceler): void
 }
 
 export interface IAxiosTransformer {
@@ -113,4 +130,29 @@ export interface IRejectedFn {
 
 export interface IAxiosStatic extends IAxiosInstance {
   create(config?: IAxiosRequestConfig): IAxiosStatic
+
+  CancelToken: ICancelTokenStatic
+  Cancel: ICancelStatic
+  isCancel: (value: any) => boolean
 }
+
+export interface ICancelTokenSource {
+  token: ICancelToken
+  cancel: ICanceler
+}
+
+export interface ICancelTokenStatic {
+  new (excutor: ICancelExcutor): ICancelToken
+
+  source(): ICancelTokenSource
+}
+
+export interface ICancel {
+  message?: string
+}
+
+export interface ICancelStatic {
+  new (message?: string): ICancel
+}
+
+export interface AxiosS {}

@@ -7,6 +7,7 @@ import { flattenHeaders, processHeaders } from '../helper/headers'
 import transform from './transform'
 
 function dispatchRequest(config: IAxiosRequestConfig): IAxiosPromise {
+  throwIfCancellationRequested(config)
   processConfig(config)
   return xhr(config)
 }
@@ -30,5 +31,10 @@ function transFormUrl(config: IAxiosRequestConfig): string {
 // function transformRequestData(config: IAxiosRequestConfig) {
 //   return transformRequest(config.data)
 // }
+function throwIfCancellationRequested(config: IAxiosRequestConfig): void {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested()
+  }
+}
 
 export default dispatchRequest
