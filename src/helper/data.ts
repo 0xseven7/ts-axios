@@ -12,8 +12,9 @@ export function transformResponse(data: any): any {
   if (typeof data === 'string') {
     try {
       data = JSON.parse(data)
-      // tslint:disable-next-line:no-empty
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+    }
   }
   return data
 }

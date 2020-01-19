@@ -110,3 +110,7 @@ export interface IResolvedFn<T = any> {
 export interface IRejectedFn {
   (error: any): any
 }
+
+export interface IAxiosStatic extends IAxiosInstance {
+  create(config?: IAxiosRequestConfig): IAxiosStatic
+}

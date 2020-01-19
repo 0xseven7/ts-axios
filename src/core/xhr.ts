@@ -1,8 +1,9 @@
 import { IAxiosRequestConfig, IAxiosResponse } from '../types'
 import { parserHeaders } from '../helper/headers'
-import { parserResponseData } from '../helper/data'
+import { transformResponse } from '../helper/data'
 import { createError } from '../helper/error'
 import { create } from 'domain'
+import transform from './transform'
 
 export default function xhr(
   config: IAxiosRequestConfig
@@ -24,7 +25,7 @@ export default function xhr(
       request.timeout = timeout
     }
 
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
     request.onerror = function() {
       reject(createError('Network Error', config, null, request))
     }
@@ -52,7 +53,7 @@ export default function xhr(
           ? request.response
           : request.responseText
       const response: IAxiosResponse = {
-        data: parserResponseData(responseData),
+        data: transformResponse(responseData),
         // data: responseData,
         headers: parserHeaders(responseHeaders),
         statusText: request.statusText,
@@ -75,7 +76,7 @@ export default function xhr(
 
     function handleResponse(response: IAxiosResponse) {
       if (response.status >= 200 && response.status < 300) {
-        resolve(response)
+        resolve(transformResponseData(response))
       } else {
         reject(
           createError(
@@ -87,6 +88,10 @@ export default function xhr(
           )
         )
       }
+    }
+    function transformResponseData(res: IAxiosResponse): IAxiosResponse {
+      res.data = transform(res.data, res.headers, res.config.transformResponse)
+      return res
     }
   })
 }

@@ -55,10 +55,8 @@ router.post('/extend/post', (req, res) => {
   res.json(req.body)
 })
 router.post('/config/post', (req, res) => {
-  res.json({
-    body: req.headers,
-    data: req.body
-  })
+  console.log(req.body);
+  res.json(req.body)
 })
 
 router.post('/base/buffer', (req, res) => {
